@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { createContext, useReducer } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import tienda from './store/tienda'
+
+
+export const ValueContext = createContext()
+
+const initialValue = {
+  value: 0,
+}
+
+const Store = () => {
+  const [state, dispatch] = useReducer(tienda, initialValue)
+  return (
+    <ValueContext.Provider value={{ state, dispatch }}>
+      <App />
+    </ValueContext.Provider>
+  )
+}
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Store />,
   document.getElementById('root')
 );
 
